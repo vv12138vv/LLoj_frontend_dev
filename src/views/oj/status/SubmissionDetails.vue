@@ -38,14 +38,14 @@
                     <template v-slot="{ row }">
                         <a style="color: rgb(87, 163, 243)" @click="getProblemUri(row)">{{
                             row.displayPid
-                            }}</a>
+                        }}</a>
                     </template>
                 </vxe-table-column>
                 <vxe-table-column :title="$t('m.Status')" field="status" min-width="160">
                     <template v-slot="{ row }">
                         <span :class="getStatusColor(row.status)">{{
                             JUDGE_STATUS[row.status].name
-                            }}</span>
+                        }}</span>
                     </template>
                 </vxe-table-column>
                 <vxe-table-column :title="$t('m.Time')" min-width="96">
@@ -81,7 +81,7 @@
                 <div slot="header">
                     <span class="panel-title home-title">{{
                         $t('m.Test_point_details')
-                        }}</span>
+                    }}</span>
                 </div>
                 <el-row :gutter="10">
                     <el-col v-for="(item, index) in testCaseResult" :key="index" :lg="3" :md="6" :sm="8" :xs="24">
@@ -141,20 +141,20 @@
             </el-card>
         </el-col>
         <!-- 提交代码评审部分 -->
-        <el-col :span="24">
+        <el-col v-if="isMySubmission && submission.score == 100" :span="24">
             <el-card shadow="hover" style="margin-top: 13px;">
                 <div slot="header">
                     <span class="panel-title home-title">{{ $t('m.Code_review_score') }}:</span>
-                    <span class="review-score">{{ reviewScore }}</span>
+                    <span class="review-score">{{ aiCodeReview.score }}</span>
                 </div>
                 <el-row class="flex-container" :gutter="20">
                     <el-col :span="12">
                         <span class="subtitle">{{ $t("m.Code_review") }}:</span>
-                        <div class="text-box">{{ review }}</div>
+                        <div class="text-box">{{ aiCodeReview.review }}</div>
                     </el-col>
                     <el-col :span="12">
                         <span class="subtitle">{{ $t("m.Code_review_suggestion") }}:</span>
-                        <div class="text-box">{{ suggestion }}</div>
+                        <div class="text-box">{{ aiCodeReview.suggestion }}</div>
                     </el-col>
                 </el-row>
             </el-card>
@@ -220,6 +220,7 @@ export default {
                 author: '',
                 errorMessage: '',
                 share: true,
+                score: 0
             },
             tableData: [],
             testCaseResult: [],
@@ -228,18 +229,11 @@ export default {
             loadingTable: false,
             JUDGE_STATUS: '',
             JUDGE_STATUS_RESERVE: '',
-            // 分数
-            reviewScore: 85,
-            // 分数评价
-            // 评价
-            review:
-                "代码结构清晰，逻辑合理，注释充分，符合最佳实践。但在性能优化方面还有提升空间。",
-            // 建议
-            suggestion: `
-            优化循环逻辑，减少不必要的计算。
-            增加单元测试覆盖率。
-            考虑使用更高效的算法处理大数据量场景。
-            代码风格可以进一步统一，例如变量命名规范。`,
+            aiCodeReview: {
+                score: 0,
+                review: '',
+                suggestion: ''
+            }
         };
     },
     mounted() {
@@ -336,6 +330,10 @@ export default {
                     this.$nextTick((_) => {
                         addCodeBtn();
                     });
+                    //获取Ai评审
+                    if (this.$store.getters.userInfo.uid === this.submission.uid && this.submission.score >= 100) {
+                        this.getAiCodeReview(this.submission.submitId, this.submission.language, this.submission.code);
+                    }
                 },
                 () => {
                     this.loadingTable = false;
@@ -349,7 +347,30 @@ export default {
                 this.testCaseResult = res.data.data;
             });
         },
-
+        async getAiCodeReview(submitId, language, code) {
+            try {
+                // 尝试获取 AI 代码评审
+                const reviewResponse = await api.getAiCodeReview(submitId);
+                if (reviewResponse.data.status === 200) {
+                    this.aiCodeReview = reviewResponse.data.data; // 成功时赋值
+                    return;
+                }
+                throw new Error("Failed to get AI code review"); // 抛出错误以进入 catch
+            } catch (getError) {
+                console.error("Error in getAiCodeReview:", getError);
+                try {
+                    // 如果获取失败，尝试生成 AI 代码评审
+                    const generateResponse = await api.generateAiCodeReview(submitId, language, code);
+                    if (generateResponse.data.status === 200) {
+                        this.aiCodeReview = generateResponse.data.data; // 成功时赋值
+                    } else {
+                        throw new Error("Failed to generate AI code review"); // 抛出错误以进入 catch
+                    }
+                } catch (generateError) {
+                    console.error("Error in generateAiCodeReview:", generateError);
+                }
+            }
+        },
         shareSubmission(shared) {
             let data = {
                 submitId: this.submission.submitId,
@@ -563,5 +584,4 @@ export default {
     margin-bottom: 8px;
     margin-left: 10px;
 }
-
 </style>

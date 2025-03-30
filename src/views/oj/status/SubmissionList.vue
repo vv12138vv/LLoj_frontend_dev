@@ -593,7 +593,6 @@ export default {
                 this.autoCheckOpen = false;
               } else {
                 this.checkStatusNum += 1;
-                console.log(this.checkStatusNum)
                 this.refreshStatus = setTimeout(checkStatus, 2000);
               }
             },
@@ -757,7 +756,6 @@ export default {
       }
     },
     getStatusColor(status) {
-      console.log(status)
       return 'el-tag el-tag--medium status-' + JUDGE_STATUS[status]['color'];
     },
     tableRowClassName({row, rowIndex}) {
