@@ -415,16 +415,16 @@ export default {
   margin-bottom: 10px;
 }
 
-/deep/ .el-tag--dark {
+::v-deep .el-tag--dark {
   border-color: #fff;
 }
 
-/deep/ .el-card__header {
+::v-deep .el-card__header {
   padding-bottom: 0;
 }
 
 @media screen and (min-width: 1150px) {
-  /deep/ .vxe-table--body-wrapper {
+  ::v-deep .vxe-table--body-wrapper {
     overflow-x: hidden !important;
   }
 }

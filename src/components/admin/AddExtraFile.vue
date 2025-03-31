@@ -146,7 +146,7 @@ export default {
   margin: 10px;
 }
 
-/deep/ .CodeMirror-scroll {
+::v-deep .CodeMirror-scroll {
   max-height: 300px;
 }
 </style>

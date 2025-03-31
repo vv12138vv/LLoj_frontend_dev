@@ -421,7 +421,7 @@ export default {
     padding-inline-start: 5px;
   }
 
-  /deep/ .el-card__header {
+  ::v-deep .el-card__header {
     margin-bottom: 5px;
   }
 }
@@ -432,7 +432,7 @@ export default {
   }
 }
 
-/deep/ .el-card__header {
+::v-deep .el-card__header {
   border-bottom: 0px;
 }
 

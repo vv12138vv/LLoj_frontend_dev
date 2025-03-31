@@ -381,7 +381,7 @@ export default {
   margin-bottom: 2px !important;
 }
 
-/deep/ .el-dialog__body {
+::v-deep .el-dialog__body {
   padding-top: 0 !important;
 }
 

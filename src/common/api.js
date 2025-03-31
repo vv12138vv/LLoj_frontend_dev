@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 import mMessage from '@/common/message'
-import router from '@/router'
+import {router} from '@/router'
 import store from "@/store"
 import utils from '@/common/utils'
 // import NProgress from 'nprogress' // nprogress插件

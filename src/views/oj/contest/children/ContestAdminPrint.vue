@@ -197,7 +197,7 @@ export default {
   }
 }
 
-/deep/ .el-tag--dark {
+::v-deep .el-tag--dark {
   border-color: #fff;
 }
 </style>

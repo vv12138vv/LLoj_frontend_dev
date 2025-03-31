@@ -974,11 +974,11 @@ export default {
   padding-left: 10px;
 }
 
-/deep/ .el-tag--dark {
+::v-deep .el-tag--dark {
   border-color: #fff;
 }
 
-/deep/ .el-dialog__body {
+::v-deep .el-dialog__body {
   padding-bottom: 0;
 }
 

@@ -697,7 +697,7 @@ export default {
 }
 </style>
 <style scoped>
-/deep/ .el-card__body {
+::v-deep .el-card__body {
   padding: 0 !important;
 }
 

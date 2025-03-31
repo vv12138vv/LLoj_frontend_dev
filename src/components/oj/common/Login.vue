@@ -214,12 +214,12 @@ export default {
   text-align: left;
 }
 
-/deep/ .el-button {
+::v-deep .el-button {
   margin: 0 0 15px 0;
   width: 100%;
 }
 
-/deep/ .el-form-item__content {
+::v-deep .el-form-item__content {
   margin-left: 0px !important;
 }
 </style>

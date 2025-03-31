@@ -840,18 +840,18 @@ export default {
   width: 210px;
 }
 
-/deep/ .el-card__header {
+::v-deep .el-card__header {
   border-bottom: 0px;
   padding-bottom: 0px;
   text-align: center;
 }
 
-/deep/ .el-dialog {
+::v-deep .el-dialog {
   border-radius: 6px !important;
   text-align: center;
 }
 
-/deep/ .el-switch {
+::v-deep .el-switch {
   padding-top: 6px;
 }
 
@@ -862,7 +862,7 @@ export default {
 }
 
 @media screen and (min-width: 1050px) {
-  /deep/ .vxe-table--body-wrapper {
+  ::v-deep .vxe-table--body-wrapper {
     overflow-x: hidden !important;
   }
 }
