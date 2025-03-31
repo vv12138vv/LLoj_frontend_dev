@@ -220,7 +220,7 @@
         <Announcements class="card-top"></Announcements>
       </el-col>
       <el-col :md="9" :sm="24" class="phone-margin">
-        <el-card>
+        <!-- <el-card>
           <div slot="header" class="clearfix title">
             <span class="home-title panel-title">
               {{ $t('m.Supported_Remote_Online_Judge') }}
@@ -240,7 +240,7 @@
               </a>
             </el-col>
           </el-row>
-        </el-card>
+        </el-card> -->
         <el-card class="card-top">
           <div slot="header" class="clearfix">
             <span class="panel-title home-title">{{
@@ -365,24 +365,12 @@ export default {
           logo: require('@/assets/remotejudgelogo/codeforces.png'),
           status: true,
         },
-        // {
-        //   url: 'https://codeforces.com/gyms',
-        //   name: 'GYM',
-        //   logo: require('@/assets/gym-logo.png'),
-        //   status: true,
-        // },
         {
           url: 'https://atcoder.jp',
           name: 'AtCoder',
           logo: require('@/assets/remotejudgelogo/atcoder.png'),
           status: true,
         },
-        // {
-        //   url: 'https://www.spoj.com',
-        //   name: 'SPOJ',
-        //   logo: require('@/assets/spoj-logo.png'),
-        //   status: true,
-        // },
         {
           url: 'https://mxt.cn',
           name: 'MXT',

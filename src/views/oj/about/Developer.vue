@@ -4,13 +4,13 @@
       <paper-card type="server">
         <h1 class="text-darken">VOJ</h1>
         <h1>
-          <a href="https://github.com/simplefanC/voj" target="_blank"
-          >Virtual Online Judge</a
+          <a href="https://github.com/vv12138vv/LLoj" target="_blank"
+          >LL Online Judge</a
           >
         </h1>
         <p>
-          {{ $t('m.Leader_BackEnd_FrontEnd_Engineer') }} / simplefanC
-          <a class="icon" href="https://github.com/simplefanC" target="_blank"
+          {{ $t('m.Leader_BackEnd_FrontEnd_Engineer') }} / vv12138vv
+          <a class="icon" href="https://github.com/vv12138vv" target="_blank"
           ><i class="fa fa-github"></i>
           </a>
         </p>

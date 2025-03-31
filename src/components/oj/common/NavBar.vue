@@ -12,7 +12,7 @@
           <el-image
               :src="imgUrl"
               fit="scale-down"
-              style="width: 139px; height: 50px"
+              style="width: 130px; height: auto"
           ></el-image>
         </div>
         <el-menu-item index="/home">
@@ -826,12 +826,12 @@ export default {
   margin-top: 10px;
 }
 
-/deep/ .el-dialog {
+::v-deep .el-dialog {
   border-radius: 10px !important;
   text-align: center;
 }
 
-/deep/ .el-dialog__header .el-dialog__title {
+::v-deep .el-dialog__header .el-dialog__title {
   font-size: 22px;
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;

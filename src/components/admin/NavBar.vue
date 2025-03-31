@@ -6,7 +6,7 @@
           :router="true"
           class="vertical_menu">
         <div class="logo">
-          <img :src="imgUrl" alt="oj admin"/>
+          <img :src="imgUrl" alt="oj admin" style="width:300px; height:auto;"/>
         </div>
         <el-menu-item index="/admin/">
           <i aria-hidden="true" class="fa fa-tachometer fa-size"/>
@@ -145,11 +145,6 @@
               ? websiteConfig.shortName.toUpperCase() + ' ADMIN'
               : 'ADMIN'
         }}
-<!--        <mu-menu v-show="isAuthenticated" slot="right">-->
-<!--          <mu-button flat @click="katexVisible = true">-->
-<!--            <i class="fa fa-font katex-editor"></i>-->
-<!--          </mu-button>-->
-<!--        </mu-menu>-->
         <mu-menu
             v-show="isAuthenticated"
             slot="right"
@@ -547,8 +542,6 @@ export default {
 }
 
 .vertical_menu .logo img {
-  /*background-color: #fff;*/
-  /*border: 3px solid #fff;*/
   width: 100px;
   height: 100px;
 }
