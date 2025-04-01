@@ -143,11 +143,13 @@
         <!-- 提交代码评审部分 -->
         <el-col v-if="isMySubmission && submission.score == 100" :span="24">
             <el-card shadow="hover" style="margin-top: 13px;">
+
                 <div slot="header">
                     <span class="panel-title home-title">{{ $t('m.Code_review_score') }}:</span>
                     <span class="review-score">{{ aiCodeReview.score }}</span>
                 </div>
-                <el-row class="flex-container" :gutter="20">
+                <el-skeleton v-if="isLoadingCodeReview" :rows="4" animated />
+                <el-row v-else class="flex-container" :gutter="20">
                     <el-col :span="12">
                         <span class="subtitle">{{ $t("m.Code_review") }}:</span>
                         <div class="text-box">{{ aiCodeReview.review }}</div>
@@ -233,7 +235,8 @@ export default {
                 score: 0,
                 review: '',
                 suggestion: ''
-            }
+            },
+            isLoadingCodeReview: true
         };
     },
     mounted() {
@@ -351,18 +354,20 @@ export default {
             try {
                 // 尝试获取 AI 代码评审
                 const reviewResponse = await api.getAiCodeReview(submitId);
-                if (reviewResponse.data.status === 200) {
+                if (reviewResponse.data.status === 200&&reviewResponse.data.msg==="success") {
                     this.aiCodeReview = reviewResponse.data.data; // 成功时赋值
+                    this.isLoadingCodeReview=false;
                     return;
                 }
                 throw new Error("Failed to get AI code review"); // 抛出错误以进入 catch
             } catch (getError) {
-                console.error("Error in getAiCodeReview:", getError);
                 try {
                     // 如果获取失败，尝试生成 AI 代码评审
                     const generateResponse = await api.generateAiCodeReview(submitId, language, code);
                     if (generateResponse.data.status === 200) {
                         this.aiCodeReview = generateResponse.data.data; // 成功时赋值
+                        this.isLoadingCodeReview=false;
+                        return;
                     } else {
                         throw new Error("Failed to generate AI code review"); // 抛出错误以进入 catch
                     }

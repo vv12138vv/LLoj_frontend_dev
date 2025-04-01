@@ -10,7 +10,6 @@
             @keyup.enter.native="handleRegister"
         ></el-input>
       </el-form-item>
-
       <el-form-item prop="realname">
         <el-input
             v-model="registerForm.realname"

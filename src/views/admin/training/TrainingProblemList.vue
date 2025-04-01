@@ -15,7 +15,7 @@
             >{{ $t('m.Add_From_Public_Problem') }}
             </el-button>
           </span>
-          <span>
+          <!-- <span>
             <el-button
                 icon="el-icon-plus"
                 size="small"
@@ -23,7 +23,7 @@
                 @click="AddRemoteOJProblemDialogVisible = true"
             >{{ $t('m.Add_Remote_OJ_Problem') }}
             </el-button>
-          </span>
+          </span> -->
           <span>
             <vxe-input
                 v-model="keyword"

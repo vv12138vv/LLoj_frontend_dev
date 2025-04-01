@@ -106,7 +106,7 @@
       </el-upload>
     </el-card>
 
-    <el-card style="margin-top:15px">
+    <!-- <el-card style="margin-top:15px">
       <div slot="header">
         <span class="panel-title home-title">{{ $t('m.Import_LOJ_Problem') }}</span>
       </div>
@@ -126,9 +126,9 @@
           </el-button>
         </el-form-item>
       </el-form>
-    </el-card>
+    </el-card> -->
 
-    <el-card style="margin-top:15px">
+    <!-- <el-card style="margin-top:15px">
       <div slot="header">
         <span class="panel-title home-title">{{
             $t('m.Import_QDOJ_Problem')
@@ -168,9 +168,9 @@
         </el-button
         >
       </el-upload>
-    </el-card>
+    </el-card> -->
 
-    <el-card style="margin-top:15px">
+    <!-- <el-card style="margin-top:15px">
       <div slot="header">
         <span class="panel-title home-title">{{
             $t('m.Import_FPS_Problem')
@@ -210,7 +210,7 @@
         </el-button
         >
       </el-upload>
-    </el-card>
+    </el-card> -->
   </div>
 </template>
 <script>

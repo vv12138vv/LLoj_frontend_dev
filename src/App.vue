@@ -100,8 +100,6 @@ export default {
     }
   },
   mounted() {
-    console.log(LOGO);
-    console.log(MOTTO);
     this.getWebsiteConfig();
   },
 };

@@ -6,7 +6,7 @@
           :router="true"
           class="vertical_menu">
         <div class="logo">
-          <img :src="imgUrl" alt="oj admin" style="width:300px; height:auto;"/>
+          <img :src="imgUrl" alt="oj admin"/>
         </div>
         <el-menu-item index="/admin/">
           <i aria-hidden="true" class="fa fa-tachometer fa-size"/>

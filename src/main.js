@@ -13,7 +13,11 @@ import axios from 'axios'
 
 // 注释表示使用cdn引入
 import 'xe-utils'
-import VXETable from 'vxe-table'
+
+// vxe-table组件
+import VxeUIAll from 'vxe-pc-ui'
+import 'vxe-pc-ui/lib/style.css'
+import VxeUITable from 'vxe-table'
 import 'vxe-table/lib/style.css'
 
 // markdown编辑器
@@ -72,11 +76,11 @@ Object.keys(filters).forEach(key => {   // 注册全局过滤器
 })
 Vue.use(VueParticles) // 粒子特效背景
 Vue.use(Katex)  // 数学公式渲染
-VXETable.setup({
-  // 对组件内置的提示语进行国际化翻译
-  i18n: (key, value) => i18n.t(key, value)
+VxeUITable.setConfig({
+    i18n: (key, value) => i18n.t(key, value)
 })
-Vue.use(VXETable) // 表格组件
+Vue.use(VxeUIAll)
+Vue.use(VxeUITable)
 Vue.use(VueClipboard) // 剪贴板
 Vue.use(highlight) // 代码高亮
 Vue.use(Element, {
