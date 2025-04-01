@@ -146,7 +146,7 @@
 
                 <div slot="header">
                     <span class="panel-title home-title">{{ $t('m.Code_review_score') }}:</span>
-                    <span class="review-score">{{ aiCodeReview.score }}</span>
+                    <span class="review-score" v-if="!isLoadingCodeReview">{{ aiCodeReview.score }}</span>
                 </div>
                 <el-skeleton v-if="isLoadingCodeReview" :rows="4" animated />
                 <el-row v-else class="flex-container" :gutter="20">
