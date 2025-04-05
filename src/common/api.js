@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 import mMessage from '@/common/message'
-import {router} from '@/router'
+import { router } from '@/router'
 import store from "@/store"
 import utils from '@/common/utils'
 // import NProgress from 'nprogress' // nprogress插件
@@ -273,7 +273,7 @@ const ojApi = {
     },
     // 生成提交对应的ai评审
     generateAiCodeReview(submitId, language, code) {
-        return ajax('/api/generate_code_review', 'post',{
+        return ajax('/api/generate_code_review', 'post', {
             data: {
                 submitId,
                 language,
@@ -393,7 +393,16 @@ const ojApi = {
             params
         })
     },
-
+    getTrainingRegisters(params) {
+        return ajax('/api/get-training-registers', 'get', {
+            params
+        })
+    },
+    removeTrainingRegister(params) {
+        return ajax('/api/remove-training-register', 'get', {
+            params
+        })
+    },
 
     // ------------------------------------------------------------------------------------------------
 

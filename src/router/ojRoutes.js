@@ -32,6 +32,7 @@ import TrainingList from "@/views/oj/training/TrainingList.vue"
 import TrainingDetails from "@/views/oj/training/TrainingDetails.vue"
 import TrainingProblemList from "@/views/oj/training/TrainingProblemList.vue"
 import TrainingRank from "@/views/oj/training/TrainingRank.vue"
+import TrainingRegisters from "@/views/oj/training/TrainingRegisters"
 import NotFound from "@/views/404.vue"
 
 const ojRoutes = [
@@ -88,6 +89,12 @@ const ojRoutes = [
         path: 'rank',
         component: TrainingRank,
         meta: {title: 'Training Rank'}
+      },
+      {
+        name: 'TrainingRegisters',
+        path: 'registers',
+        component: TrainingRegisters,
+        meta: {title: 'Training Registers'}
       }
     ]
   },
