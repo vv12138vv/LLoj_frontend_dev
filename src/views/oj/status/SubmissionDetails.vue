@@ -38,14 +38,14 @@
                     <template v-slot="{ row }">
                         <a style="color: rgb(87, 163, 243)" @click="getProblemUri(row)">{{
                             row.displayPid
-                        }}</a>
+                            }}</a>
                     </template>
                 </vxe-table-column>
                 <vxe-table-column :title="$t('m.Status')" field="status" min-width="160">
                     <template v-slot="{ row }">
                         <span :class="getStatusColor(row.status)">{{
                             JUDGE_STATUS[row.status].name
-                        }}</span>
+                            }}</span>
                     </template>
                 </vxe-table-column>
                 <vxe-table-column :title="$t('m.Time')" min-width="96">
@@ -81,7 +81,7 @@
                 <div slot="header">
                     <span class="panel-title home-title">{{
                         $t('m.Test_point_details')
-                    }}</span>
+                        }}</span>
                 </div>
                 <el-row :gutter="10">
                     <el-col v-for="(item, index) in testCaseResult" :key="index" :lg="3" :md="6" :sm="8" :xs="24">
@@ -141,7 +141,7 @@
             </el-card>
         </el-col>
         <!-- 提交代码评审部分 -->
-        <el-col v-if="isMySubmission && submission.score == 100" :span="24">
+        <el-col v-if="isMySubmission && submission.score == 100 && cid == 0" :span="24">
             <el-card shadow="hover" style="margin-top: 13px;">
 
                 <div slot="header">
@@ -354,9 +354,9 @@ export default {
             try {
                 // 尝试获取 AI 代码评审
                 const reviewResponse = await api.getAiCodeReview(submitId);
-                if (reviewResponse.data.status === 200&&reviewResponse.data.msg==="success") {
+                if (reviewResponse.data.status === 200 && reviewResponse.data.msg === "success") {
                     this.aiCodeReview = reviewResponse.data.data; // 成功时赋值
-                    this.isLoadingCodeReview=false;
+                    this.isLoadingCodeReview = false;
                     return;
                 }
                 throw new Error("Failed to get AI code review"); // 抛出错误以进入 catch
@@ -366,7 +366,7 @@ export default {
                     const generateResponse = await api.generateAiCodeReview(submitId, language, code);
                     if (generateResponse.data.status === 200) {
                         this.aiCodeReview = generateResponse.data.data; // 成功时赋值
-                        this.isLoadingCodeReview=false;
+                        this.isLoadingCodeReview = false;
                         return;
                     } else {
                         throw new Error("Failed to generate AI code review"); // 抛出错误以进入 catch

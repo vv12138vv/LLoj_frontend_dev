@@ -317,6 +317,10 @@ export const m = {
   Edit_Training: 'Edit Training',
   Redirect_To_Category: 'The category list of current training is empty. Please go to create category first!',
   Redirect: 'Redirect',
+  Yes: 'Yes',
+  No: 'No',
+  Time: 'Time',
+  Error: 'Error',
 
   // /views/admin/training/TrainingProblemList.vue
   Training_Problem_List: 'Training Problem List',

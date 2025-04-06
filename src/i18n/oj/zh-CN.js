@@ -504,6 +504,7 @@ export const m = {
     Number: '编号',
     Problem_Number: '题目数',
     Recent_Update: '最近更新',
+    Limit_Time: '限时',
 
     // /views/oj/training/TrainingDetails.vue
     Training_Introduction: '训练简介',

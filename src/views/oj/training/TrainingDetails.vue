@@ -21,10 +21,10 @@
                 <el-tab-pane lazy name="TrainingDetails">
                     <span slot="label"><i class="el-icon-s-home"></i>&nbsp;{{
                         $t('m.Training_Introduction')
-                    }}</span>
+                        }}</span>
                     <el-row :gutter="30">
                         <el-col :md="7" :sm="24">
-                            <el-card v-if="trainingPasswordFormVisible" class="password-form-card">
+                            <el-card v-if="trainingPasswordFormVisible && ifStart && !ifEnd" class="password-form-card">
                                 <div slot="header">
                                     <span class="panel-title" style="color: #e6a23c;"><i class="el-icon-warning">
                                             {{ $t('m.Password_Required') }}</i></span>
@@ -41,6 +41,16 @@
                                             $t('m.OK') }}
                                     </el-button>
                                 </el-form>
+                            </el-card>
+                            <el-card v-else class="status-card">
+                                <div style="justify-content: center;">
+                                    <span v-if="ifEnd" class="status-tag status-ended">
+                                        <span>该训练已结束</span>
+                                    </span>
+                                    <span v-else-if="!ifStart" class="status-tag status-not-started">
+                                        <span>该训练未开始</span>
+                                    </span>
+                                </div>
                             </el-card>
                             <el-card>
                                 <div class="info-rows">
@@ -72,7 +82,7 @@
                                                 ';background-color: ' +
                                                 training.categoryColor
                                                 " class="category-item" size="medium">{{ training.categoryName
-                                                    }}</el-tag></span>
+                                                }}</el-tag></span>
                                         </span>
                                     </div>
 
@@ -102,6 +112,30 @@
                                             <span>{{ training.gmtModified | localtime }}</span>
                                         </span>
                                     </div>
+                                    <div>
+                                        <span>
+                                            <span>{{ $t('m.Limit_Time') }}</span>
+                                        </span>
+                                        <span>
+                                            <span>{{ training.limitTime ? $t('m.Yes') : $t('m.No') }}</span>
+                                        </span>
+                                    </div>
+                                    <div v-if="training.limitTime">
+                                        <span>
+                                            <span>{{ $t('m.Begin_Time') }}</span>
+                                        </span>
+                                        <span>
+                                            <span>{{ training.startTime | localtime }}</span>
+                                        </span>
+                                    </div>
+                                    <div v-if="training.limitTime">
+                                        <span>
+                                            <span>{{ $t('m.End_Time') }}</span>
+                                        </span>
+                                        <span>
+                                            <span>{{ training.endTime | localtime }}</span>
+                                        </span>
+                                    </div>
                                 </div>
                             </el-card>
                         </el-col>
@@ -110,7 +144,7 @@
                                 <div slot="header">
                                     <span class="panel-title">{{
                                         $t('m.Training_Introduction')
-                                    }}</span>
+                                        }}</span>
                                 </div>
                                 <div v-highlight class="markdown-body" v-html="descriptionHtml"></div>
                             </el-card>
@@ -121,24 +155,25 @@
                 <el-tab-pane :disabled="trainingMenuDisabled" lazy name="TrainingProblemList">
                     <span slot="label"><i aria-hidden="true" class="fa fa-list"></i>&nbsp;{{
                         $t('m.Problem_List')
-                    }}</span>
+                        }}</span>
                     <transition name="el-collapse-transition">
                         <router-view v-if="route_name === 'TrainingProblemList'"></router-view>
                     </transition>
                 </el-tab-pane>
 
-                <el-tab-pane v-if="isPrivateTraining" :disabled="trainingMenuDisabled" lazy name="TrainingRank">
+                <el-tab-pane v-if="isPrivateTraining&&isTrainingAdmin" :disabled="trainingMenuDisabled" lazy name="TrainingRank">
                     <span slot="label"><i aria-hidden="true" class="fa fa-bar-chart"></i>&nbsp;{{
                         $t('m.Record_List')
-                    }}</span>
+                        }}</span>
                     <transition name="el-collapse-transition">
                         <router-view v-if="route_name === 'TrainingRank'"></router-view>
                     </transition>
                 </el-tab-pane>
 
-                <el-tab-pane v-if="isTrainingAdmin&&isPrivateTraining" :disabled="trainingMenuDisabled" lazy name="TrainingRegisters">
+                <el-tab-pane v-if="isTrainingAdmin && isPrivateTraining" :disabled="trainingMenuDisabled" lazy
+                    name="TrainingRegisters">
                     <span slot="label"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;{{ $t('m.Training_Registers')
-                    }}</span>
+                        }}</span>
                     <transition name="el-collapse-transition">
                         <router-view v-if="route_name === 'TrainingRegisters'"></router-view>
                     </transition>
@@ -168,6 +203,8 @@ export default {
                 { color: '#1989fa', percentage: 80 },
                 { color: '#67c23a', percentage: 100 },
             ],
+            ifStart: false,
+            ifEnd: false
         };
     },
     created() {
@@ -178,14 +215,20 @@ export default {
         this.TRAINING_TYPE = Object.assign({}, TRAINING_TYPE);
         this.$store.dispatch('getTraining').then((res) => {
             this.changeDomTitle({ title: res.data.data.title });
+            const nowTime = new Date();
+            const startTime = new Date(this.training.startTime);
+            const endTime = new Date(this.training.endTime);
+            this.ifStart = nowTime >= startTime;
+            this.ifEnd = nowTime >= endTime;
         });
+
+
     },
     methods: {
         ...mapActions(['changeDomTitle']),
         tabClick(tab) {
             let name = tab.name;
             if (name !== this.$route.name) {
-                console.log("vv12138vv:"+name);
                 this.$router.push({ name: name });
             }
         },
@@ -307,5 +350,59 @@ export default {
 
 ::v-deep .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
     padding-left: 20px;
+}
+
+.status-card {
+    padding: 12px;
+    /* 增加卡片内边距 */
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.status-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    /* 圆角 */
+    font-weight: 500;
+    /* 加粗文字 */
+    transition: all 0.3s ease;
+}
+
+/* 已结束状态 */
+.status-ended {
+    background-color: #f8d7da;
+    /* 浅红色背景 */
+    color: #721c24;
+    /* 深红色文字 */
+    border: 1px solid #f5c6cb;
+    /* 浅红边框 */
+
+}
+
+/* 未开始状态 */
+.status-not-started {
+    background-color: #fff3cd;
+    /* 浅黄色背景 */
+    color: #856404;
+    /* 深黄色文字 */
+    border: 1px solid #ffeeba;
+    /* 浅黄边框 */
+
+}
+
+/* 悬停效果 */
+.status-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 文字排版 */
+.status-tag span {
+    margin-right: 8px;
+    /* 图标与文字间距（如果有图标时使用） */
+    font-size: 16px;
 }
 </style>

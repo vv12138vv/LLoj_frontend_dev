@@ -328,6 +328,10 @@ export const m = {
   Edit_Training: '编辑训练',
   Redirect_To_Category: '当前训练的分类列表为空，请先前往创建分类！',
   Redirect: '重定向',
+  Yes: '是',
+  No: '否',
+  Time: '时间',
+  Error: '错误',
 
   // /views/admin/training/TrainingProblemList.vue
   Training_Problem_List: '训练题目列表',

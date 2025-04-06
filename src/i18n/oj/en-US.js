@@ -501,6 +501,7 @@ export const m = {
   Number: 'Number',
   Problem_Number: 'Problem Number',
   Recent_Update: 'Recent Update',
+  Limit_Time: 'Limit Time',
 
   // /views/oj/training/TrainingDetails.vue
   Training_Introduction: 'Training Introduction',
