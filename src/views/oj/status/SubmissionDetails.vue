@@ -141,7 +141,7 @@
             </el-card>
         </el-col>
         <!-- 提交代码评审部分 -->
-        <el-col v-if="isMySubmission && submission.score == 100 && cid == 0" :span="24">
+        <el-col v-if="isMySubmission && submission.score == 100 && !isCompetition" :span="24">
             <el-card shadow="hover" style="margin-top: 13px;">
 
                 <div slot="header">
@@ -236,7 +236,8 @@ export default {
                 review: '',
                 suggestion: ''
             },
-            isLoadingCodeReview: true
+            isLoadingCodeReview: true,
+            isCompetition:false
         };
     },
     mounted() {
@@ -319,6 +320,7 @@ export default {
                     }
                     // 如果是比赛 需要显示的是比赛题号
                     if (this.$route.params.problemID && data.submission.cid != 0) {
+                        this.isCompetition=true;
                         data.submission.displayPid = this.$route.params.problemID;
                     }
                     this.submission = data.submission;
