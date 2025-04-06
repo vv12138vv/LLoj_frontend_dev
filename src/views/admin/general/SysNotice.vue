@@ -135,12 +135,12 @@
             <el-radio v-model="notice.type" label="All">{{
                 $t('m.All_User')
               }}</el-radio>
-            <el-radio v-model="notice.type" disabled label="Single">{{
+            <!-- <el-radio v-model="notice.type" disabled label="Single">{{
                 $t('m.Designated_User')
               }}</el-radio>
             <el-radio v-model="notice.type" disabled label="Admin">{{
                 $t('m.All_Admin')
-              }}</el-radio>
+              }}</el-radio> -->
           </span>
         </div>
       </el-form>
