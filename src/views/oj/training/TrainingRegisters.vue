@@ -19,7 +19,7 @@
                                         class="contest-rank-flag">Girl</span>{{ row.username }}</span>
                                 <span v-if="row.school" class="contest-school">{{
                                     row.school
-                                    }}</span>
+                                }}</span>
                             </a>
                         </span>
                     </template>
@@ -36,7 +36,7 @@
                                         class="contest-rank-flag">Girl</span>{{ row.username }}</span>
                                 <span v-if="row.school" class="contest-school">{{
                                     row.school
-                                    }}</span>
+                                }}</span>
                             </a>
                         </span>
                     </template>
@@ -47,7 +47,7 @@
 
                 <vxe-table-column :title="$t('m.Option')" min-width="150" v-if="isTrainingAdmin">
                     <template v-slot="{ row }">
-                        <template >
+                        <template>
                             <div style="margin-bottom:10px">
                                 <el-tooltip :content="$t('m.Notify')" effect="dark" placement="top">
                                     <el-button icon="el-icon-tickets" size="mini" type="warning"
@@ -76,6 +76,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import { JUDGE_STATUS } from '@/common/constants';
 import api from '@/common/api';
 import time from '@/common/time';
+import myMessage from '@/common/message';
 
 const Pagination = () => import('@/components/oj/common/Pagination');
 
@@ -154,12 +155,24 @@ export default {
             return ((ac / total) * 100).toFixed(2);
         },
         notifyRegisters(uid) {
-
+            let param = {
+                tid: this.trainingID,
+                uid: uid
+            };
+            api.notifyTrainingRegister(param).then((res) => {
+                if(res.data.data==true){
+                    myMessage.success('通知成功!');
+                    return;
+                }
+                myMessage.warn('通知失败，请稍后再试!');
+            }, (error) => {
+                myMessage.warn('通知失败，请稍后再试!');
+             });
         },
         deleteTrainingRegister(uid) {
-            let param={
-                tid:this.trainingID,
-                uid:uid
+            let param = {
+                tid: this.trainingID,
+                uid: uid
             };
             api.removeTrainingRegister(param).then((res) => {
                 this.getTrainingRegistersData();

@@ -4,6 +4,7 @@ import mMessage from '@/common/message'
 import { router } from '@/router'
 import store from "@/store"
 import utils from '@/common/utils'
+import { param } from 'jquery'
 // import NProgress from 'nprogress' // nprogress插件
 // import 'nprogress/nprogress.css' // nprogress样式
 
@@ -400,6 +401,11 @@ const ojApi = {
     },
     removeTrainingRegister(params) {
         return ajax('/api/remove-training-register', 'get', {
+            params
+        })
+    },
+    notifyTrainingRegister(params){
+        return ajax('/api/notify-training-register','get',{
             params
         })
     },
