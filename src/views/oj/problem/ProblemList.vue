@@ -38,10 +38,10 @@
                             <el-tag :effect="query.oj === 'LOCAL' || query.oj === '' ? 'dark' : 'plain'
                                 " class="filter-item" size="medium" @click="filterByOJ('LOCAL')">{{ $t('m.My_OJ') }}
                             </el-tag>
-                            <el-tag v-for="(remoteOj, index) in REMOTE_OJ" :key="index"
+                            <!-- <el-tag v-for="(remoteOj, index) in REMOTE_OJ" :key="index"
                                 :effect="query.oj == remoteOj.key ? 'dark' : 'plain'" class="filter-item" size="medium"
                                 @click="filterByOJ(remoteOj.key)">{{ remoteOj.name }}
-                            </el-tag>
+                            </el-tag> -->
                         </div>
                     </section>
 
