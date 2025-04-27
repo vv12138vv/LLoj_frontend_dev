@@ -329,6 +329,18 @@ const ojApi = {
         })
     },
 
+    // ------------------------------------小组模块的请求---------------------------------------------
+    // getGroupList(currentPage, limit, keyword) {
+    //     const params = {
+    //         currentPage,
+    //         limit,
+    //         keyword
+    //     };
+    //     return ajax('/api/get-group-list', 'get', {
+    //         param: params
+    //     });
+    // },
+
     // ------------------------------------训练模块的请求---------------------------------------------
 
     // 获取训练分类列表
@@ -404,8 +416,8 @@ const ojApi = {
             params
         })
     },
-    notifyTrainingRegister(params){
-        return ajax('/api/notify-training-register','get',{
+    notifyTrainingRegister(params) {
+        return ajax('/api/notify-training-register', 'get', {
             params
         })
     },
@@ -1112,6 +1124,31 @@ const adminApi = {
         })
     },
 
+    admin_getTeamList(currentPage, limit, keyword) {
+        const params = {
+            currentPage, limit
+        };
+        if (keyword) {
+            params.keyword = keyword;
+        };
+        return ajax('/api/admin/team/list', 'get', {
+            params: params
+        })
+
+    },
+
+    admin_getTeam(teamId) {
+        return ajax('/api/admin/team', 'get', {
+            params: {
+                teamId
+            }
+        })
+    },
+    admin_editOrCreateTeam(data) {
+        return ajax('/api/admin/team/edit-or-create-team', 'post', {
+            data
+        })
+    },
     admin_getTrainingList(currentPage, limit, keyword) {
         let params = { currentPage, limit }
         if (keyword) {

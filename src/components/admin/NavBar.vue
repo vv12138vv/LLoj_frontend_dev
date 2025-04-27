@@ -32,7 +32,6 @@
             {{$t('m.System_Switch') }}
           </el-menu-item>
         </el-submenu>
-        <!-- <el-submenu index="problem" v-if="hasProblemPermission"> -->
         <el-submenu index="problem">
           <template slot="title">
             <i aria-hidden="true" class="fa fa-bars fa-size"/>
@@ -66,6 +65,21 @@
           </el-menu-item>
         </el-submenu>
 
+        <el-submenu index="team">
+          <template slot="title">
+            <i aria-hidden="true"
+              class="el-icon-user-solid"
+              style="font-size: 20px;"/>
+            {{ $t('m.Team_Admin') }}
+          </template>
+          <el-menu-item index="/admin/team">
+            {{$t('m.Team_List') }}
+          </el-menu-item>
+          <el-menu-item index="/admin/team/create">
+            {{$t('m.Create_Team')}}
+          </el-menu-item>
+        </el-submenu>
+        
         <el-submenu index="training">
           <template slot="title">
             <i aria-hidden="true"
@@ -83,6 +97,7 @@
             {{$t('m.Admin_Category') }}
           </el-menu-item>
         </el-submenu>
+
 
         <el-submenu index="discussion">
           <template slot="title">
@@ -312,6 +327,64 @@
               </mu-list-item-title>
             </mu-list-item>
           </mu-list-item>
+
+          <mu-list-item
+              :open="openSideMenu === 'team'"
+              :ripple="false"
+              button
+              nested
+              @toggle-nested="openSideMenu = arguments[0] ? 'team' : ''">
+            <mu-list-item-action>
+              <mu-icon value=":el-icon-user-solid fa-size"></mu-icon>
+            </mu-list-item-action>
+            <mu-list-item-title>
+              {{$t('m.Team_Admin') }}
+            </mu-list-item-title>
+            <mu-list-item-action>
+              <mu-icon
+                  class="toggle-icon"
+                  size="24"
+                  value="keyboard_arrow_down"
+              ></mu-icon>
+            </mu-list-item-action>
+            <mu-list-item
+                slot="nested"
+                :ripple="false"
+                active-class="mobile-menu-active"
+                button
+                to="/admin/team"
+                @click="opendrawer = !opendrawer">
+              <mu-list-item-title>
+                {{$t('m.Team_List') }}
+              </mu-list-item-title>
+            </mu-list-item>
+            <mu-list-item
+                slot="nested"
+                :ripple="false"
+                active-class="mobile-menu-active"
+                button
+                to="/admin/team/create"
+                @click="opendrawer = !opendrawer">
+              <mu-list-item-title>{{
+                  $t('m.Create_Team')
+                }}
+              </mu-list-item-title>
+            </mu-list-item>
+
+            <mu-list-item
+                slot="nested"
+                :ripple="false"
+                active-class="mobile-menu-active"
+                button
+                to="/admin/training/category"
+                @click="opendrawer = !opendrawer">
+              <mu-list-item-title>{{
+                  $t('m.Admin_Category')
+                }}
+              </mu-list-item-title>
+            </mu-list-item>
+          </mu-list-item>
+
 
           <mu-list-item
               :open="openSideMenu === 'training'"
