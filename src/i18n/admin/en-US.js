@@ -320,6 +320,8 @@ export const m = {
     Team_Member_Email:'Email',
     Team_Member_RealName:'RealName',
     Team_Add_Member: 'Add Team Member',
+    Remove_Member:'Remove',
+
     // /views/admin/training/TrainingList.vue
     Order_Number: 'Order Number',
     View_Training_Problem_List: 'View Training Problem List',

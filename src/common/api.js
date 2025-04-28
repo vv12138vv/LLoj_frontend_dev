@@ -1179,6 +1179,11 @@ const adminApi = {
             data
         })
     },
+    admin_removeUserFromTeam(data) {
+        return ajax('/api/admin/team/remove-member', 'post', {
+            data
+        })
+    },
     admin_getTrainingList(currentPage, limit, keyword) {
         let params = { currentPage, limit }
         if (keyword) {
