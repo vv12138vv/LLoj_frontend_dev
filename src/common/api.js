@@ -780,8 +780,24 @@ const ojApi = {
         return ajax("/api/msg/clean", 'delete', {
             params
         });
+    },
+    getMyTeamList(currentPage, limit, uid) {
+        return ajax('/api/get-my-team', 'get', {
+            params: {
+                currentPage,
+                limit,
+                uid
+            }
+        })
+    },
+    quitTeam(teamId, userId) {
+        return ajax('/api/quit-team', 'get', {
+            params: {
+                teamId,
+                userId
+            }
+        })
     }
-
 }
 
 // 处理admin后台管理的请求

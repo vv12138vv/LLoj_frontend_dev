@@ -1,4 +1,3 @@
-import Group from "../../views/admin/general/Group.vue";
 
 export const m = {
     // /views/admin/Login.vue
@@ -316,11 +315,12 @@ export const m = {
     Delete_Team_Tips: 'This operation will delete the team and all member will leave the team.Do you want to continue?',
     Team_Member_Manage: 'Team Member Manage',
     Team_Member_Name: 'Member Name',
-    Team_Member_Student_Id:'Student Id',
-    Team_Member_Email:'Email',
-    Team_Member_RealName:'RealName',
+    Team_Member_Student_Id: 'Student Id',
+    Team_Member_Email: 'Email',
+    Team_Member_RealName: 'RealName',
     Team_Add_Member: 'Add Team Member',
-    Remove_Member:'Remove',
+    Remove_Member: 'Remove',
+    Quit_Team: 'Quit',
 
     // /views/admin/training/TrainingList.vue
     Order_Number: 'Order Number',

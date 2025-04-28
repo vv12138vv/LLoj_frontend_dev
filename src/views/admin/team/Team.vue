@@ -38,7 +38,7 @@
                     </vxe-table-column>
                     <vxe-table-column :title="$t('m.Option')" min-width="150">
                         <template v-slot="{ row }">
-                            <el-tooltip v-if="isSuperAdmin || user_info.uid == team.owner_id"
+                            <el-tooltip v-if="isSuperAdmin || userInfo.uid == team.ownerId"
                                 :content="$t('m.Remove_Member')" effect="dark" placement="top">
                                 <el-button icon="el-icon-minus" size="mini" type="danger"
                                     @click.native="removeUserFromTeam(row.id, row.uid)">
@@ -68,7 +68,7 @@
                     </vxe-table-column>
                     <vxe-table-column :title="$t('m.Option')" min-width="150">
                         <template v-slot="{ row }">
-                            <template v-if="isSuperAdmin || userInfo.uid == team.owner_id">
+                            <template v-if="isSuperAdmin || userInfo.uid == team.ownerId">
                                 <div style="margin-bottom:10px">
                                     <el-tooltip :content="$t('m.Add')" effect="dark" placement="top">
                                         <el-button icon="el-icon-plus" size="mini" type="primary"
@@ -89,7 +89,7 @@
 
             <el-button type="primary" @click.native="saveTeam">{{
                 $t('m.Save')
-            }}
+                }}
             </el-button>
         </el-card>
     </div>
@@ -111,6 +111,7 @@ export default {
         return {
             title: 'Create Team',
             team: {
+                uuid: null,
                 name: '',
                 description: '',
             },
@@ -147,6 +148,7 @@ export default {
             } else {
                 this.title = this.$i18n.t('m.Create_Team');
                 this.team = {
+                    uuid: null,
                     name: '',
                     description: '',
                 };

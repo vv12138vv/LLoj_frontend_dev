@@ -34,6 +34,7 @@ import TrainingProblemList from "@/views/oj/training/TrainingProblemList.vue"
 import TrainingRank from "@/views/oj/training/TrainingRank.vue"
 import TrainingRegisters from "@/views/oj/training/TrainingRegisters"
 import NotFound from "@/views/404.vue"
+import TeamList from "@/views/oj/team/TeamList.vue"
 
 const ojRoutes = [
   {
@@ -260,6 +261,12 @@ const ojRoutes = [
     name: 'DiscussionDetail',
     meta: {title: 'Discussion Detail'},
     component: Discussion
+  },
+  {
+    path: '/team',
+    name: 'MyTeam',
+    meta: {title: 'Team'},
+    component: TeamList,
   },
   {
     path: '/introduction',

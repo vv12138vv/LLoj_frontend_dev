@@ -316,6 +316,7 @@ export const m = {
 
 
     // /views/admin/team/TeamList.vue
+    Team:'群组',
     Team_Name: '小组名',
     Owner_Name: '组长名',
     Owner_RealName: '组长真名',
@@ -331,6 +332,7 @@ export const m = {
     Team_Member_RealName:'真名',
     Team_Add_Member: '添加小组成员',
     Remove_Member:'移出',
+    Quit_Team:'退出',
     // /views/admin/training/TrainingList.vue
     Order_Number: '序号',
     View_Training_Problem_List: '查看训练题目列表',
