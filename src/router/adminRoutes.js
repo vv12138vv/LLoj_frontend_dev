@@ -124,11 +124,9 @@ const adminRoutes = [
             {
                 path: 'team/:teamId/edit',
                 name: 'admin-edit-team',
-                Component: Team,
-                meta: {
-                    title: 'Edit Team',
-                    componentName: 'Team'
-                }
+                component: Team,
+                meta: { title: 'Edit Team', componentName: 'Team' },
+
             },
             {
                 path: 'training/create',

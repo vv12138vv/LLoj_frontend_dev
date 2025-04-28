@@ -15,45 +15,46 @@
                     </span>
                 </div>
             </div>
-            <vxe-table ref="xTable" :data="TeamList" :loading="loading" align="center" auto-resize stripe>
+            <vxe-table ref="xTable" :data="teamList" :loading="loading" align="center" auto-resize stripe>
                 <vxe-table-column :title="$t('m.Team_Name')" field="name" width="80">
                 </vxe-table-column>
-                <vxe-table-column :title="$t('m.Owner_Name')" field="ownerName" min-width="150" show-overflow>
+                <vxe-table-column :title="$t('m.Owner_Name')" field="ownerName" width="120" show-overflow>
                 </vxe-table-column>
-                <vxe-table-column :title="$t('m.Owner_RealName')" field="ownerRealName" width="100">
+                <vxe-table-column :title="$t('m.Owner_RealName')" field="ownerRealName" width="120">
                 </vxe-table-column>
-                <vxe-table-column :title="$t('m.Team_Member_Count')" field="count" min-width="80">
+                <vxe-table-column :title="$t('m.Team_Member_Count')" field="count" width="80">
                 </vxe-table-column>
-                <!-- <vxe-table-column :title="$t('m.Info')" min-width="210">
+                <vxe-table-column :title="$t('m.Team_Description')" field="description" min-width="150">
+                </vxe-table-column>
+                <vxe-table-column :title="$t('m.Info')" min-width="150">
                     <template v-slot="{ row }">
                         <p>Created Time: {{ row.gmtCreate | localtime }}</p>
                         <p>Update Time: {{ row.gmtModified | localtime }}</p>
-                        <p>Creator: {{ row.author }}</p>
                     </template>
-                </vxe-table-column> -->
-                <!-- <vxe-table-column :title="$t('m.Option')" min-width="150">
+                </vxe-table-column>
+                <vxe-table-column :title="$t('m.Option')" min-width="150">
                     <template v-slot="{ row }">
-                        <template v-if="isSuperAdmin || userInfo.username == row.author">
+                        <template v-if="isSuperAdmin || userInfo.uid == row.ownerId">
                             <div style="margin-bottom:10px">
                                 <el-tooltip :content="$t('m.Edit')" effect="dark" placement="top">
                                     <el-button icon="el-icon-edit" size="mini" type="primary"
-                                        @click.native="goEdit(row.id)">
+                                        @click.native="goEdit(row.uuid)">
                                     </el-button>
                                 </el-tooltip>
-                                <el-tooltip :content="$t('m.View_Training_Problem_List')" effect="dark" placement="top">
+                                <!-- <el-tooltip :content="$t('m.View_Training_Problem_List')" effect="dark" placement="top">
                                     <el-button icon="el-icon-tickets" size="mini" type="success"
                                         @click.native="goTrainingProblemList(row.id)">
                                     </el-button>
-                                </el-tooltip>
+                                </el-tooltip> -->
                             </div>
                         </template>
-                        <el-tooltip v-if="isSuperAdmin" :content="$t('m.Delete')" effect="dark" placement="top">
+                        <el-tooltip v-if="isSuperAdmin||userInfo.uid == row.ownerId" :content="$t('m.Delete')" effect="dark" placement="top">
                             <el-button icon="el-icon-delete" size="mini" type="danger"
-                                @click.native="deleteTraining(row.id)">
+                                @click.native="deleteTeam(row.uuid)">
                             </el-button>
                         </el-tooltip>
                     </template>
-                </vxe-table-column> -->
+                </vxe-table-column>
             </vxe-table>
             <div class="panel-options">
                 <el-pagination :page-size="pageSize" :total="total" class="page" layout="prev, pager, next"
@@ -76,7 +77,7 @@ export default {
         return {
             pageSize: 10,
             total: 0,
-            TeamList: [],
+            teamList: [],
             keyword: '',
             loading: false,
             excludeAdmin: true,
@@ -111,41 +112,36 @@ export default {
                 (res) => {
                     this.loading = false;
                     this.total = res.data.data.total;
-                    this.TeamList = res.data.data.records;
+                    this.teamList = res.data.data.records;
                 },
                 (res) => {
                     this.loading = false;
                 }
             );
         },
-        goEdit(trainingId) {
+        goEdit(teamId) {
             this.$router.push({
-                name: 'admin-edit-Team',
-                params: { trainingId },
+                name: 'admin-edit-team',
+                params: { teamId },
             });
         },
-        // deleteTraining(trainingId) {
-        //     this.$confirm(this.$i18n.t('m.Delete_Training_Tips'), 'Tips', {
-        //         confirmButtonText: this.$i18n.t('m.OK'),
-        //         cancelButtonText: this.$i18n.t('m.Cancel'),
-        //         type: 'warning',
-        //     }).then(() => {
-        //         api.admin_deleteTraining(trainingId).then((res) => {
-        //             myMessage.success(this.$i18n.t('m.Delete_successfully'));
-        //             this.currentChange(1);
-        //         });
-        //     });
-        // },
-        // changeTrainingStatus(trainingId, status, author) {
-        //     api.admin_changeTrainingStatus(trainingId, status, author).then((res) => {
-        //         myMessage.success(this.$i18n.t('m.Update_Successfully'));
-        //     });
-        // },
+        deleteTeam(teamId) {
+            this.$confirm(this.$i18n.t('m.Delete_Team_Tips'), 'Tips', {
+                confirmButtonText: this.$i18n.t('m.OK'),
+                cancelButtonText: this.$i18n.t('m.Cancel'),
+                type: 'warning',
+            }).then(() => {
+                api.admin_deleteTeam(teamId).then((res)=>{
+                    myMessage.success(this.$i18n.t('m.Delete_successfully'));
+                    this.currentChange(1);
+                })
+            });
+        },
         filterByKeyword() {
             this.currentChange(1);
         },
         goCreateTeam() {
-            this.$router.push({ name: 'admin-create-Team' });
+            this.$router.push({ name: 'admin-create-team' });
         },
     },
 };

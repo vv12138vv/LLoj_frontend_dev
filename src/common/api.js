@@ -1149,6 +1149,13 @@ const adminApi = {
             data
         })
     },
+    admin_deleteTeam(teamId){
+        return ajax('/api/admin/team','delete',{
+            params:{
+                teamId
+            }
+        })
+    },
     admin_getTrainingList(currentPage, limit, keyword) {
         let params = { currentPage, limit }
         if (keyword) {

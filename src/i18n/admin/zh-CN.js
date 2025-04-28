@@ -323,6 +323,7 @@ export const m = {
     Team_Description: '小组描述',
     Create_Team: '创建小组',
     Edit_Team: '编辑小组',
+    Delete_Team_Tips: '此操作将解散该小组、所有组员都会离开，是否继续？',
     // /views/admin/training/TrainingList.vue
     Order_Number: '序号',
     View_Training_Problem_List: '查看训练题目列表',

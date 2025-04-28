@@ -83,7 +83,7 @@ export default {
             api.admin_getTeam(this.$route.params.teamId)
                 .then((res) => {
                     const data = res.data.data;
-                    this.team = data.team || {};
+                    this.team = data;
                 }).catch(() => {
 
                 });

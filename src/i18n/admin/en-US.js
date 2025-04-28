@@ -313,6 +313,8 @@ export const m = {
     Team_Description: 'Description',
     Create_Team: 'Create Team',
     Edit_Team: 'Edit Team',
+    Delete_Team_Tips: 'This operation will delete the team and all member will leave the team.Do you want to continue?',
+
     // /views/admin/training/TrainingList.vue
     Order_Number: 'Order Number',
     View_Training_Problem_List: 'View Training Problem List',
