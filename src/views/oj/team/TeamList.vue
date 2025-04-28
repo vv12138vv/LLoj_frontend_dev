@@ -2,15 +2,12 @@
     <div class="container">
         <el-row :gutter="20">
             <el-col v-loading="loading">
-                <div class="discussion-header">
+                <!-- <div class="discussion-header">
                     <span style="padding: 16px;float:left;">
                         <el-breadcrumb separator-class="el-icon-arrow-right">
                         </el-breadcrumb>
                     </span>
-                    <!-- <span class="search"><vxe-input v-model="query.keyword" :placeholder="$t('m.Enter_keyword')"
-                            type="search" @keyup.enter.native="handleQueryChange"
-                            @search-click="handleQueryChange"></vxe-input></span> -->
-                </div>
+                </div> -->
                 <template v-if="teamList.length > 0">
                     <div v-for="(team, index) in teamList" :key="index" class="title-article">
                         <el-card class="list-card" shadow="hover">
@@ -28,13 +25,15 @@
                                         <avatar :inline="true" :size="24" :src="team.ownerAvatar"
                                             :username="team.ownerName" class="user-avatar" color="#FFF"></avatar>
                                         <span class="pl">{{ $t('m.Owner_Name') }}: {{ team.ownerName }}</span>
+                                        <span v-if="team.ownerId == userInfo.uid" class="role-admin role"
+                                            title="Self">Self</span>
                                     </a>
                                 </span>
                                 <span>
                                     <span class="pl">{{ $t('m.Team_Member_Count') }}: {{ team.count }}</span>
                                 </span>
-                                <el-dropdown v-show="isAuthenticated" class="hidden-xs-only" style="float:right;"
-                                    @command="handleCommand">
+                                <el-dropdown v-show="isAuthenticated && team.ownerId != userInfo.uid"
+                                    class="hidden-xs-only" style="float:right;" @command="handleCommand">
                                     <span class="el-dropdown-link">
                                         <i class="el-icon-more"></i>
                                     </span>
