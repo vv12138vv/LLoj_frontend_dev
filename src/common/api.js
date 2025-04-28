@@ -1149,11 +1149,34 @@ const adminApi = {
             data
         })
     },
-    admin_deleteTeam(teamId){
-        return ajax('/api/admin/team','delete',{
-            params:{
+    admin_deleteTeam(teamId) {
+        return ajax('/api/admin/team', 'delete', {
+            params: {
                 teamId
             }
+        })
+    },
+    admin_getTeamMembers(currentPage, limit, teamId) {
+        return ajax('/api/admin/team/members', 'get', {
+            params: {
+                currentPage,
+                limit,
+                teamId
+            }
+        })
+    },
+    admin_getAddUsers(currentPage, limit, teamId) {
+        return ajax('/api/admin/team/users', 'get', {
+            params: {
+                currentPage,
+                limit,
+                teamId
+            }
+        })
+    },
+    admin_addUserToTeam(data) {
+        return ajax('/api/admin/team/add-member', 'post', {
+            data
         })
     },
     admin_getTrainingList(currentPage, limit, keyword) {
@@ -1174,7 +1197,6 @@ const adminApi = {
             }
         })
     },
-
     admin_getTrainingProblemList(params) {
         params = utils.filterEmptyValue(params)
         return ajax('/api/admin/training/get-problem-list', 'get', {

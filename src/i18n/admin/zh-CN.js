@@ -324,6 +324,12 @@ export const m = {
     Create_Team: '创建小组',
     Edit_Team: '编辑小组',
     Delete_Team_Tips: '此操作将解散该小组、所有组员都会离开，是否继续？',
+    Team_Member_Manage: '小组成员管理',
+    Team_Member_Name: '组员名',
+    Team_Member_Student_Id:'学号',
+    Team_Member_Email:'邮箱',
+    Team_Member_RealName:'真名',
+    Team_Add_Member: '添加小组成员',
     // /views/admin/training/TrainingList.vue
     Order_Number: '序号',
     View_Training_Problem_List: '查看训练题目列表',
