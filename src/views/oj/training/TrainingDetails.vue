@@ -24,7 +24,9 @@
                         }}</span>
                     <el-row :gutter="30">
                         <el-col :md="7" :sm="24">
-                            <el-card v-if="trainingPasswordFormVisible && ifStart && !ifEnd" class="password-form-card">
+                            <el-card
+                                v-if="trainingPasswordFormVisible && (!training.limitTime || training.limitTime && ifStart && !ifEnd)"
+                                class="password-form-card">
                                 <div slot="header">
                                     <span class="panel-title" style="color: #e6a23c;"><i class="el-icon-warning">
                                             {{ $t('m.Password_Required') }}</i></span>
@@ -171,8 +173,8 @@
                     </transition>
                 </el-tab-pane>
 
-                <el-tab-pane v-if="isTrainingAdmin && (isPrivateTraining||isTeamTraining)" :disabled="trainingMenuDisabled" lazy
-                    name="TrainingRank">
+                <el-tab-pane v-if="isTrainingAdmin && (isPrivateTraining || isTeamTraining)"
+                    :disabled="trainingMenuDisabled" lazy name="TrainingRank">
                     <span slot="label"><i aria-hidden="true" class="fa fa-bar-chart"></i>&nbsp;{{
                         $t('m.Record_List')
                         }}</span>
@@ -181,8 +183,8 @@
                     </transition>
                 </el-tab-pane>
 
-                <el-tab-pane v-if="isTrainingAdmin && (isPrivateTraining||isTeamTraining)" :disabled="trainingMenuDisabled" lazy
-                    name="TrainingRegisters">
+                <el-tab-pane v-if="isTrainingAdmin && (isPrivateTraining || isTeamTraining)"
+                    :disabled="trainingMenuDisabled" lazy name="TrainingRegisters">
                     <span slot="label"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;{{ $t('m.Training_Registers')
                         }}</span>
                     <transition name="el-collapse-transition">
