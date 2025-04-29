@@ -11,7 +11,7 @@
                     <el-col :span="24">
                         <el-form-item :label="$t('m.Training_rank')" required>
                             <el-input-number v-model="training.rank" :label="$t('m.Training_rank')" :max="2147483647"
-                                :min="0" @change="handleChange"></el-input-number>
+                                :min="0"></el-input-number>
                         </el-form-item>
                     </el-col>
 
@@ -45,14 +45,14 @@
                                 </el-form-item>
                             </el-col>
 
-                            <el-col :md="8" :xs="24" v-show="training.limitTime==true">
+                            <el-col :md="8" :xs="24" v-show="training.limitTime == true">
                                 <el-form-item :label="$t('m.Start_Time')" required>
                                     <el-date-picker v-model="training.startTime" :placeholder="$t('m.Start_Time')"
                                         type="datetime">
                                     </el-date-picker>
                                 </el-form-item>
                             </el-col>
-                            <el-col :md="8" :xs="24" v-show="training.limitTime==true">
+                            <el-col :md="8" :xs="24" v-show="training.limitTime == true">
                                 <el-form-item :label="$t('m.End_Time')" required>
                                     <el-date-picker v-model="training.endTime" :placeholder="$t('m.End_Time')"
                                         type="datetime">
@@ -62,22 +62,34 @@
                         </el-row>
                     </el-col>
 
+                    <div v-if="$route.name === 'admin-create-training'">
+                        <el-col :md="8" :xs="24">
+                            <el-form-item :label="$t('m.Training_Auth')" required>
+                                <el-select v-model="training.auth">
+                                    <el-option :label="$t('m.Public_Training')" value="Public"></el-option>
+                                    <el-option :label="$t('m.Private_Training')" value="Private"></el-option>
+                                    <el-option :label="$t('m.Team_Training')" value="Team"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
 
-                    <el-col :md="8" :xs="24">
-                        <el-form-item :label="$t('m.Training_Auth')" required>
-                            <el-select v-model="training.auth">
-                                <el-option :label="$t('m.Public_Training')" value="Public"></el-option>
-                                <el-option :label="$t('m.Private_Training')" value="Private"></el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-
-                    <el-col :md="8" :xs="24">
-                        <el-form-item v-show="training.auth != 'Public'" :label="$t('m.Training_Password')"
-                            :required="training.auth != 'Public'">
-                            <el-input v-model="training.privatePwd" :placeholder="$t('m.Training_Password')"></el-input>
-                        </el-form-item>
-                    </el-col>
+                        <el-col :md="8" :xs="24">
+                            <el-form-item v-if="training.auth == 'Private'" :label="$t('m.Training_Password')"
+                                :required="training.auth == 'Private'">
+                                <el-input v-model="training.privatePwd"
+                                    :placeholder="$t('m.Training_Password')"></el-input>
+                            </el-form-item>
+                            <el-form-item v-if="training.auth == 'Team'" :label="$t('m.Training_Team_List')"
+                                :required="training.auth == 'Team'">
+                                <el-select v-model="training.teamId" filterable placeholder="请选择您的群组"
+                                    loading-text="加载中..." @visible-change="getOwnTeamList">
+                                    <el-option v-for="team in teams" :key="team.value" :label="team.label"
+                                        :value="team.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </div>
                 </el-row>
             </el-form>
             <el-button type="primary" @click.native="saveTraining">{{
@@ -111,14 +123,18 @@ export default {
                 auth: 'Public',
                 limitTime: false,
                 startTime: null,
-                endTime: null
+                endTime: null,
+                teamId: null
             },
             trainingCategoryId: null,
             trainingCategoryList: [],
+            teams: [],
+            ownTeamLoading: false,
         };
     },
     mounted() {
         this.init();
+
     },
     watch: {
         $route() {
@@ -189,7 +205,6 @@ export default {
                 );
                 return;
             }
-
             if (!this.training.title) {
                 myMessage.error(
                     this.$i18n.t('m.Training_Title') + ' ' + this.$i18n.t('m.is_required')
@@ -214,7 +229,7 @@ export default {
                 return;
             }
 
-            if (this.training.auth != 'Public' && !this.training.privatePwd) {
+            if (this.training.auth == 'Private' && !this.training.privatePwd) {
                 myMessage.error(
                     this.$i18n.t('m.Training_Password') +
                     ' ' +
@@ -222,11 +237,18 @@ export default {
                 );
                 return;
             }
-            if(this.training.limitTime==true){
-                let duration=this.training.endTime-this.training.startTime;
-                if(duration<=0){
+            if (this.training.auth == 'Team' && !this.training.teamId) {
+                myMessage.error(
+                    this.$i18n.t('m.Team') +
+                    ' ' +
+                    this.$i18n.t('m.is_required')
+                );
+            }
+            if (this.training.limitTime == true) {
+                let duration = this.training.endTime - this.training.startTime;
+                if (duration <= 0) {
                     myMessage.error(
-                        this.$i18n.t('m,Time')+' '+this.$i18n.t('m.Error')
+                        this.$i18n.t('m,Time') + ' ' + this.$i18n.t('m.Error')
                     );
                     return;
                 }
@@ -259,6 +281,21 @@ export default {
                 .catch(() => {
                 });
         },
+        getOwnTeamList() {
+            this.ownTeamLoading = true;
+            api.getOwnTeamList(this.userInfo.uid).then((res) => {
+                let records = res.data.data;
+                let temp = [];
+                for (let i = 0; i < records.length; i += 1) {
+                    temp.push({
+                        label: records[i].name,
+                        value: records[i].uuid,
+                    });
+                }
+                this.ownTeamLoading = false;
+                this.teams = temp;
+            })
+        }
     },
 };
 </script>

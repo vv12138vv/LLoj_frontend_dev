@@ -44,10 +44,11 @@
                             </el-card>
                             <el-card v-else class="status-card">
                                 <div style="justify-content: center;">
-                                    <span v-if="ifEnd" class="status-tag status-ended">
+                                    <span v-if="training.limitTime && ifEnd" class="status-tag status-ended">
                                         <span>该训练已结束</span>
                                     </span>
-                                    <span v-else-if="!ifStart" class="status-tag status-not-started">
+                                    <span v-else-if="training.limitTime && !ifStart"
+                                        class="status-tag status-not-started">
                                         <span>该训练未开始</span>
                                     </span>
                                 </div>
@@ -104,6 +105,14 @@
                                                     }}</el-link></span>
                                         </span>
                                     </div>
+                                    <div v-if="training.auth == 'Team'">
+                                        <span>
+                                            <span>{{ $t('m.Team_Name') }}</span>
+                                        </span>
+                                        <span>
+                                            <span>{{ training.teamName }}</span>
+                                        </span>
+                                    </div>
                                     <div>
                                         <span>
                                             <span>{{ $t('m.Recent_Update') }}</span>
@@ -112,6 +121,7 @@
                                             <span>{{ training.gmtModified | localtime }}</span>
                                         </span>
                                     </div>
+
                                     <div>
                                         <span>
                                             <span>{{ $t('m.Limit_Time') }}</span>
@@ -161,7 +171,8 @@
                     </transition>
                 </el-tab-pane>
 
-                <el-tab-pane v-if="isPrivateTraining&&isTrainingAdmin" :disabled="trainingMenuDisabled" lazy name="TrainingRank">
+                <el-tab-pane v-if="isTrainingAdmin && (isPrivateTraining||isTeamTraining)" :disabled="trainingMenuDisabled" lazy
+                    name="TrainingRank">
                     <span slot="label"><i aria-hidden="true" class="fa fa-bar-chart"></i>&nbsp;{{
                         $t('m.Record_List')
                         }}</span>
@@ -170,7 +181,7 @@
                     </transition>
                 </el-tab-pane>
 
-                <el-tab-pane v-if="isTrainingAdmin && isPrivateTraining" :disabled="trainingMenuDisabled" lazy
+                <el-tab-pane v-if="isTrainingAdmin && (isPrivateTraining||isTeamTraining)" :disabled="trainingMenuDisabled" lazy
                     name="TrainingRegisters">
                     <span slot="label"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;{{ $t('m.Training_Registers')
                         }}</span>
@@ -276,6 +287,7 @@ export default {
             'trainingPasswordFormVisible',
             'trainingMenuDisabled',
             'isPrivateTraining',
+            'isTeamTraining',
             'isAuthenticated',
             'isTrainingAdmin'
         ]),

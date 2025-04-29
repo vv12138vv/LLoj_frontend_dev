@@ -797,6 +797,13 @@ const ojApi = {
                 userId
             }
         })
+    },
+    getOwnTeamList(uid){
+        return ajax('/api/get-own-team','get',{
+            params:{
+                uid
+            }
+        })
     }
 }
 
