@@ -129,7 +129,7 @@ export default {
             if (!total) {
                 return 0;
             }
-            return ((ac / total) * 100).toFixed(2);
+            return Number(((ac / total) * 100).toFixed(2));
         },
     },
     computed: {

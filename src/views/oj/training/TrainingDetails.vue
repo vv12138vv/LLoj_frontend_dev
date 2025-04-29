@@ -21,7 +21,7 @@
                 <el-tab-pane lazy name="TrainingDetails">
                     <span slot="label"><i class="el-icon-s-home"></i>&nbsp;{{
                         $t('m.Training_Introduction')
-                        }}</span>
+                    }}</span>
                     <el-row :gutter="30">
                         <el-col :md="7" :sm="24">
                             <el-card
@@ -85,7 +85,7 @@
                                                 ';background-color: ' +
                                                 training.categoryColor
                                                 " class="category-item" size="medium">{{ training.categoryName
-                                                }}</el-tag></span>
+                                                    }}</el-tag></span>
                                         </span>
                                     </div>
 
@@ -156,7 +156,7 @@
                                 <div slot="header">
                                     <span class="panel-title">{{
                                         $t('m.Training_Introduction')
-                                        }}</span>
+                                    }}</span>
                                 </div>
                                 <div v-highlight class="markdown-body" v-html="descriptionHtml"></div>
                             </el-card>
@@ -167,7 +167,7 @@
                 <el-tab-pane :disabled="trainingMenuDisabled" lazy name="TrainingProblemList">
                     <span slot="label"><i aria-hidden="true" class="fa fa-list"></i>&nbsp;{{
                         $t('m.Problem_List')
-                        }}</span>
+                    }}</span>
                     <transition name="el-collapse-transition">
                         <router-view v-if="route_name === 'TrainingProblemList'"></router-view>
                     </transition>
@@ -177,7 +177,7 @@
                     :disabled="trainingMenuDisabled" lazy name="TrainingRank">
                     <span slot="label"><i aria-hidden="true" class="fa fa-bar-chart"></i>&nbsp;{{
                         $t('m.Record_List')
-                        }}</span>
+                    }}</span>
                     <transition name="el-collapse-transition">
                         <router-view v-if="route_name === 'TrainingRank'"></router-view>
                     </transition>
@@ -186,7 +186,7 @@
                 <el-tab-pane v-if="isTrainingAdmin && (isPrivateTraining || isTeamTraining)"
                     :disabled="trainingMenuDisabled" lazy name="TrainingRegisters">
                     <span slot="label"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;{{ $t('m.Training_Registers')
-                        }}</span>
+                    }}</span>
                     <transition name="el-collapse-transition">
                         <router-view v-if="route_name === 'TrainingRegisters'"></router-view>
                     </transition>
@@ -275,10 +275,7 @@ export default {
             if (this.training.acCount == null) {
                 this.training.acCount = 0;
             }
-            return (
-                (this.training.acCount / this.training.problemCount) *
-                100
-            ).toFixed(2);
+            return Number(((this.training.acCount / this.training.problemCount) *100).toFixed(2));
         },
     },
     computed: {

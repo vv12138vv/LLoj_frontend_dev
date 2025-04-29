@@ -49,9 +49,10 @@
                         <b class="problem-filter">{{ $t('m.Level') }}</b>
                         <div>
                             <el-tag :effect="query.difficulty === 'All' || query.difficulty === ''
-                                    ? 'dark'
-                                    : 'plain'
-                                " class="filter-item" size="medium" @click="filterByDifficulty('All')">{{ $t('m.All') }}
+                                ? 'dark'
+                                : 'plain'
+                                " class="filter-item" size="medium" @click="filterByDifficulty('All')">{{ $t('m.All')
+                                }}
                             </el-tag>
                             <el-tag v-for="(value, key, index) in PROBLEM_LEVEL" :key="index"
                                 :effect="query.difficulty == key ? 'dark' : 'plain'" :style="getLevelBlockColor(key)"
@@ -95,7 +96,7 @@
                         <template v-slot="{ row }">
                             <a class="title-a" @click="getProblemUri(row.problemId)">{{
                                 row.title
-                                }}</a>
+                            }}</a>
                         </template>
                     </vxe-table-column>
 
@@ -248,7 +249,7 @@ export default {
             searchTag: '',
             searchTagClassificationList: [],
             activeTagClassificationIdList: [],
-            isAuthenticated:false
+            isAuthenticated: false
         };
     },
     created() {
@@ -325,7 +326,7 @@ export default {
             if (!total) {
                 return 0;
             }
-            return (Number)(((ac / total) * 100).toFixed(2));
+            return Number((((ac / total) * 100).toFixed(2)));
         },
         // 处理触碰或鼠标悬浮某题目，在右上方显示对应的提交数据
         cellHover(event) {
